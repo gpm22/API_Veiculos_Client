@@ -46,26 +46,36 @@ export class VehiclesComponent{
 
 
   registerVehicle(vehicle: Vehicle): void{
-    if(!vehicle.id || !this.user){
+    if(!vehicle.id || !this.user)
       return;
-    }
       
     this.vehiclesService
         .addVehicleToUser(this.user.email, vehicle.id)
         .subscribe(() => {
           this.user?.vehicles?.push(vehicle);
-          this.vehicles.splice(this.vehicles.indexOf(vehicle), 1);
+          this.removeVehicleFromArray(this.vehicles, vehicle);
         });
   }
 
-  unregisterVehicle(vehicleId?: string): void{
-    if(!vehicleId || !this.user){
+  unregisterVehicle(vehicle: Vehicle): void{
+    if(!vehicle.id || !this.user)
       return;
-    }
       
     this.vehiclesService
-        .removeVehicleFromUser(this.user.email, vehicleId)
-        .subscribe(() => alert("removed!"));
+        .removeVehicleFromUser(this.user.email, vehicle.id)
+        .subscribe(() => {
+          this.vehicles.push(vehicle);
+          if(this.user && this.user.vehicles)
+            this.removeVehicleFromArray(this.user.vehicles, vehicle);
+        });
+  }
+
+
+  private removeVehicleFromArray(arr: Vehicle[], vehicle: Vehicle){
+    let vehicleIndex = arr.indexOf(vehicle);
+    if(vehicleIndex > -1)
+      arr.splice(vehicleIndex, 1);
+    
   }
 
   rotationDayMap(day: number){
