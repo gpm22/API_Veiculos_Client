@@ -1,1 +1,17 @@
-<p>home works!</p>
+<div id="login-wrapper">
+    <div id="invisible-header"></div>
+    <div className="login-block">
+    <h1>System Access</h1>
+    <br />
+    <div>
+        CPF or Email
+        <input type="text" autoComplete="cpf or email" [(ngModel)]="cpfOrEmail" />
+    </div>
+    <div *ngIf="error" id="error">
+        {{error}}
+    </div>
+    <button type="button" (click)="sendLoginRequest()">
+        Log in
+    </button>
+    </div>
+</div>
