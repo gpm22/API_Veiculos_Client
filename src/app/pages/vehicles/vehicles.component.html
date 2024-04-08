@@ -1,4 +1,6 @@
-<h2>Registered Vehicles</h2>
+<h2 *ngIf="user">Hello, {{user.name}}!</h2>
+
+<h3>Registered Vehicles in Platform</h3>
 <table id="vehicles-table">
   <thead id="vehicles-table-head">
       <tr>
@@ -25,3 +27,31 @@
     </tr>
   </tbody>
 </table>
+
+<div id="user-vehicles" *ngIf="user">
+  <h3>Your vehicles</h3>
+<table id="user-vehicles-table">
+  <thead id="user-vehicles-table-head">
+      <tr>
+        <th>Model</th>
+        <th>Brand</th>
+        <th>Year</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Rotation Day</th>
+        <th>Is rotation actice?</th>
+      </tr>
+  </thead>
+  <tbody id="user-vehicles-table-body">
+    <tr *ngFor="let vehicle of user.vehicles">
+      <td>{{vehicle.model}}</td>
+      <td>{{vehicle.brand}}</td>
+      <td>{{vehicle.year}}</td>
+      <td>{{typeMap(vehicle.type)}}</td>
+      <td>{{vehicle.price? vehicle.price : "-"}}</td>
+      <td>{{vehicle.rotationDay? rotationDayMap(vehicle.rotationDay) : "-"}}</td>
+      <td>{{vehicle.rotationActive === undefined? "-" : vehicle.rotationActive? "Yes" : "No"}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>

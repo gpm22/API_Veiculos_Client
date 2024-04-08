@@ -1,37 +1,58 @@
 import { Component } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { VehiclesService } from './vehicles.service';
-import { OnInit } from '@angular/core';
 import { Vehicle } from '../../models/vehicle';
-
+import { OwnerService } from '../../shared/services/owner-service.service';
+import { Owner } from '../../models/owner';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-vehicles',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, NgIf],
   templateUrl: './vehicles.component.html',
-  styleUrl: './vehicles.component.scss'
+  styleUrl: './vehicles.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class VehiclesComponent implements OnInit {
+export class VehiclesComponent{
 
   public vehicles: Vehicle[] = [];
+  public user?: Owner;
 
   constructor(
-    private vehiclesService: VehiclesService
-  ){}
-
-  ngOnInit(): void {
-    this.vehiclesService
-        .getAll()
-        .subscribe(vehicles => this.vehicles = vehicles);
+    private vehiclesService: VehiclesService,
+    private ownerService: OwnerService,
+    private changeDetectorRef: ChangeDetectorRef
+  ){
+    this.ownerService.user.subscribe(
+      user => {
+        this.user = user;
+        this.updatedVehicles();
+    });
   }
 
+  updatedVehicles(){
+    this.vehiclesService
+        .getAll()
+        .subscribe(vehicles => {
+          if(this.user?.vehicles){
+            let map = this.user?.vehicles?.map( v => v.model );
+            this.vehicles = vehicles.filter(v => !map.includes(v.model));
+          } else {
+            this.vehicles = vehicles
+          }
+          this.changeDetectorRef.detectChanges();
+        });
+  }
+
+
   registerVehicle(vehicleId?: string): void{
-    if(!vehicleId){
+    if(!vehicleId || !this.user){
       return;
     }
       
     this.vehiclesService
-        .addVehicleToUser("126.764.550-44", vehicleId)
+        .addVehicleToUser(this.user.email, vehicleId)
         .subscribe(() => alert("registered!"));
   }
 
