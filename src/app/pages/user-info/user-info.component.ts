@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { OwnerService } from '../../shared/services/owner-service.service';
+import { Owner } from '../../models/owner';
 
 @Component({
   selector: 'app-user-info',
@@ -8,5 +10,13 @@ import { Component } from '@angular/core';
   styleUrl: './user-info.component.scss'
 })
 export class UserInfoComponent {
+  public user?: Owner;
 
+  constructor(
+    private ownerService: OwnerService
+  ){
+    this.ownerService.user.subscribe(user => {
+      this.user = user;
+    })
+  }
 }
