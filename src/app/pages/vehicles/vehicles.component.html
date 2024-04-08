@@ -1,33 +1,34 @@
 <h2 *ngIf="user">Hello, {{user.name}}!</h2>
 
-<h3>Registered Vehicles in Platform</h3>
-<table id="vehicles-table">
-  <thead id="vehicles-table-head">
-      <tr>
-        <th>Model</th>
-        <th>Brand</th>
-        <th>Year</th>
-        <th>Type</th>
-        <th>Price</th>
-        <th>Rotation Day</th>
-        <th>Is rotation actice?</th>
-        <th></th>
+<div *ngIf="vehicles.length > 0" id="registered-vehicles">
+  <h3>Registered Vehicles in Platform</h3>
+  <table id="vehicles-table">
+    <thead id="vehicles-table-head">
+        <tr>
+          <th>Model</th>
+          <th>Brand</th>
+          <th>Year</th>
+          <th>Type</th>
+          <th>Price</th>
+          <th>Rotation Day</th>
+          <th>Is rotation actice?</th>
+          <th></th>
+        </tr>
+    </thead>
+    <tbody id="vehicles-table-body">
+      <tr *ngFor="let vehicle of vehicles">
+        <td>{{vehicle.model}}</td>
+        <td>{{vehicle.brand}}</td>
+        <td>{{vehicle.year}}</td>
+        <td>{{typeMap(vehicle.type)}}</td>
+        <td>{{vehicle.price? vehicle.price : "-"}}</td>
+        <td>{{vehicle.rotationDay? rotationDayMap(vehicle.rotationDay) : "-"}}</td>
+        <td>{{vehicle.rotationActive === undefined? "-" : vehicle.rotationActive? "Yes" : "No"}}</td>
+        <td><button type="button" (click)="registerVehicle(vehicle.id)">Add to User</button></td>
       </tr>
-  </thead>
-  <tbody id="vehicles-table-body">
-    <tr *ngFor="let vehicle of vehicles">
-      <td>{{vehicle.model}}</td>
-      <td>{{vehicle.brand}}</td>
-      <td>{{vehicle.year}}</td>
-      <td>{{typeMap(vehicle.type)}}</td>
-      <td>{{vehicle.price? vehicle.price : "-"}}</td>
-      <td>{{vehicle.rotationDay? rotationDayMap(vehicle.rotationDay) : "-"}}</td>
-      <td>{{vehicle.rotationActive === undefined? "-" : vehicle.rotationActive? "Yes" : "No"}}</td>
-      <td><button type="button" (click)="registerVehicle(vehicle.id)">Add to User</button></td>
-    </tr>
-  </tbody>
-</table>
-
+    </tbody>
+  </table>
+</div>
 <div id="user-vehicles" *ngIf="user">
   <h3>Your vehicles</h3>
 <table id="user-vehicles-table">
