@@ -8,9 +8,14 @@ import { Owner } from '../../models/owner';
 export class OwnerStateService {
 
   user: ReplaySubject<any> = new ReplaySubject<any>();
-  constructor() { }
+  constructor() {
+    let storedOwner = localStorage.getItem('storedOwner');
+    if(storedOwner)
+      this.setUser(JSON.parse(storedOwner));
+  }
 
-  setUser(user: Owner){
+  setUser(user?: Owner){
+    localStorage.setItem('storedOwner', JSON.stringify(user));
     this.user.next(user);
   }
 }
