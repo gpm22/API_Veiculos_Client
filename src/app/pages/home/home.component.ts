@@ -5,15 +5,13 @@ import { HomeService } from './home.service';
 import { OwnerStateService } from '../../shared/services/owner-state.service';
 import { Router } from '@angular/router';
 import { Owner } from '../../models/owner';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [NgIf, FormsModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 

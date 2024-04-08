@@ -4,15 +4,14 @@ import { VehiclesService } from './vehicles.service';
 import { Vehicle } from '../../models/vehicle';
 import { OwnerStateService } from '../../shared/services/owner-state.service';
 import { Owner } from '../../models/owner';
-import { ChangeDetectionStrategy } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   selector: 'app-vehicles',
   standalone: true,
   imports: [NgFor, NgIf],
   templateUrl: './vehicles.component.html',
-  styleUrl: './vehicles.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrl: './vehicles.component.scss'
 })
 export class VehiclesComponent{
 
