@@ -24,7 +24,7 @@
         <td>{{vehicle.price? vehicle.price : "-"}}</td>
         <td>{{vehicle.rotationDay? rotationDayMap(vehicle.rotationDay) : "-"}}</td>
         <td>{{vehicle.rotationActive === undefined? "-" : vehicle.rotationActive? "Yes" : "No"}}</td>
-        <td><button type="button" (click)="registerVehicle(vehicle.id)">Add to User</button></td>
+        <td><button type="button" (click)="registerVehicle(vehicle)">Add to User</button></td>
       </tr>
     </tbody>
   </table>
@@ -41,6 +41,7 @@
         <th>Price</th>
         <th>Rotation Day</th>
         <th>Is rotation actice?</th>
+        <th></th>
       </tr>
   </thead>
   <tbody id="user-vehicles-table-body">
@@ -52,6 +53,7 @@
       <td>{{vehicle.price? vehicle.price : "-"}}</td>
       <td>{{vehicle.rotationDay? rotationDayMap(vehicle.rotationDay) : "-"}}</td>
       <td>{{vehicle.rotationActive === undefined? "-" : vehicle.rotationActive? "Yes" : "No"}}</td>
+      <td><button type="button" (click)="unregisterVehicle(vehicle.id)">Remove From User</button></td>
     </tr>
   </tbody>
 </table>

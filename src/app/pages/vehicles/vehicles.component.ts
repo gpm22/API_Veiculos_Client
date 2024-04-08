@@ -45,14 +45,27 @@ export class VehiclesComponent{
   }
 
 
-  registerVehicle(vehicleId?: string): void{
+  registerVehicle(vehicle: Vehicle): void{
+    if(!vehicle.id || !this.user){
+      return;
+    }
+      
+    this.vehiclesService
+        .addVehicleToUser(this.user.email, vehicle.id)
+        .subscribe(() => {
+          this.user?.vehicles?.push(vehicle);
+          this.vehicles.splice(this.vehicles.indexOf(vehicle), 1);
+        });
+  }
+
+  unregisterVehicle(vehicleId?: string): void{
     if(!vehicleId || !this.user){
       return;
     }
       
     this.vehiclesService
-        .addVehicleToUser(this.user.email, vehicleId)
-        .subscribe(() => alert("registered!"));
+        .removeVehicleFromUser(this.user.email, vehicleId)
+        .subscribe(() => alert("removed!"));
   }
 
   rotationDayMap(day: number){
