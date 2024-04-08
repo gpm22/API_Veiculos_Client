@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { ReplaySubject } from 'rxjs';
 import { Owner } from '../../models/owner';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Owner } from '../../models/owner';
 })
 export class OwnerService {
 
-  user: Subject<Owner> = new Subject<Owner>();
+  user: ReplaySubject<any> = new ReplaySubject<any>();
   constructor() { }
 
   setUser(user: Owner){
