@@ -53,6 +53,7 @@ export class VehiclesComponent{
         .addVehicleToUser(this.user.email, vehicle.id)
         .subscribe(() => {
           this.user?.vehicles?.push(vehicle);
+          this.ownerStateService.setUser(this.user);
           this.removeVehicleFromArray(this.vehicles, vehicle);
         });
   }
@@ -67,6 +68,7 @@ export class VehiclesComponent{
           this.vehicles.push(vehicle);
           if(this.user && this.user.vehicles)
             this.removeVehicleFromArray(this.user.vehicles, vehicle);
+            this.ownerStateService.setUser(this.user);
         });
   }
 
