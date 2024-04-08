@@ -5,11 +5,12 @@ import { Vehicle } from '../../models/vehicle';
 import { OwnerStateService } from '../../shared/services/owner-state.service';
 import { Owner } from '../../models/owner';
 import { ChangeDetectorRef } from '@angular/core';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-vehicles',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, NavbarComponent],
   templateUrl: './vehicles.component.html',
   styleUrl: './vehicles.component.scss'
 })

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { OwnerStateService } from '../../services/owner-state.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,4 +11,13 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  constructor(
+    private ownerStateService: OwnerStateService,
+    private router: Router
+  ){}
+
+  logOut() {
+    this.ownerStateService.setUser(undefined);
+    this.router.navigate(['/home']);
+  }
 }
