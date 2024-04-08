@@ -28,8 +28,13 @@ export class VehiclesService {
   }
 
   addVehicleToUser(userEmail: string, vehicleId: string){
-    let url: string = `${environment.api_veiculos}/${environment.api_veiculos_owner}/${userEmail}/${environment.api_veiculos_register_vehicle}/${vehicleId}`;
-    return this.httpClient.put<Vehicle>(url, "");
+    return this.httpClient.put<Vehicle>(this.register_vehicle_to_user_url(userEmail, vehicleId), "");
   }
 
+  removeVehicleFromUser(userEmail: string, vehicleId: string){
+    return this.httpClient.delete<Vehicle>(this.register_vehicle_to_user_url(userEmail, vehicleId));
+  }
+
+  private register_vehicle_to_user_url = (userEmail: string, vehicleId: string) => 
+    `${environment.api_veiculos}/${environment.api_veiculos_owner}/${userEmail}/${environment.api_veiculos_register_vehicle}/${vehicleId}`;
 }
