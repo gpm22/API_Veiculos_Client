@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../app.config';
-
-import { Vehicle } from './vehicles.models';
-import { url } from 'inspector';
+import { Vehicle } from '../../models/vehicle';
 
 @Injectable({
   providedIn: 'root'
