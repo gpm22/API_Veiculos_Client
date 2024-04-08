@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomeService } from './home.service';
-import { OwnerService } from '../../shared/services/owner-service.service';
+import { OwnerStateService } from '../../shared/services/owner-state.service';
 import { Router } from '@angular/router';
 import { Owner } from '../../models/owner';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -23,10 +23,10 @@ export class HomeComponent {
 
   constructor(
     private homeService: HomeService,
-    private ownerService: OwnerService,
+    private ownerStateService: OwnerStateService,
     private router: Router
   ){
-    this.ownerService.user.subscribe(
+    this.ownerStateService.user.subscribe(
       user => {
         this.user = user;
     });
@@ -38,7 +38,7 @@ export class HomeComponent {
         .subscribe(owner => {
           if(owner){
             this.error = undefined;
-            this.ownerService.setUser(owner);
+            this.ownerStateService.setUser(owner);
             this.router.navigate(['/vehicles']);
           } else {
             this.error = `User with data ${this.cpfOrEmail} does not exist!`;

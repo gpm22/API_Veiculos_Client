@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { VehiclesService } from './vehicles.service';
 import { Vehicle } from '../../models/vehicle';
-import { OwnerService } from '../../shared/services/owner-service.service';
+import { OwnerStateService } from '../../shared/services/owner-state.service';
 import { Owner } from '../../models/owner';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
@@ -21,10 +21,10 @@ export class VehiclesComponent{
 
   constructor(
     private vehiclesService: VehiclesService,
-    private ownerService: OwnerService,
+    private ownerStateService: OwnerStateService,
     private changeDetectorRef: ChangeDetectorRef
   ){
-    this.ownerService.user.subscribe(
+    this.ownerStateService.user.subscribe(
       user => {
         this.user = user;
         this.updatedVehicles();

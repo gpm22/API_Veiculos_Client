@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OwnerService } from '../../shared/services/owner-service.service';
+import { OwnerStateService } from '../../shared/services/owner-state.service';
 import { Owner } from '../../models/owner';
 
 @Component({
@@ -13,9 +13,9 @@ export class UserInfoComponent {
   public user?: Owner;
 
   constructor(
-    private ownerService: OwnerService
+    private ownerStateService: OwnerStateService
   ){
-    this.ownerService.user.subscribe(user => {
+    this.ownerStateService.user.subscribe(user => {
       this.user = user;
     })
   }

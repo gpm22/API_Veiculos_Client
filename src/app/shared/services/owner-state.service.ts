@@ -5,7 +5,7 @@ import { Owner } from '../../models/owner';
 @Injectable({
   providedIn: 'root'
 })
-export class OwnerService {
+export class OwnerStateService {
 
   user: ReplaySubject<any> = new ReplaySubject<any>();
   constructor() { }
