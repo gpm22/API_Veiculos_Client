@@ -64,6 +64,10 @@ export class HomeComponent {
     this.addingNewUser = true;
   }
 
+  disallowAddingUser(){
+    this.addingNewUser = false;
+  }
+
   addUser(){
     if(this.newUserForm.invalid)
       return;

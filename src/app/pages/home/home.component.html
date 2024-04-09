@@ -31,4 +31,5 @@
         Login error: {{error}}
     </div>
     <button [disabled]="newUserForm.invalid" type="submit">Add User</button>
+    <button (click)="disallowAddingUser()" type="button">Cancel</button>
 </form>
