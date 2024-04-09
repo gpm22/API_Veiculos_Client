@@ -17,9 +17,10 @@ export class OwnerStateService {
   setUser(user?: Owner){
     if(user){
       localStorage.setItem('storedOwner', JSON.stringify(user));
+      this.user.next(user);
     } else {
       localStorage.removeItem('storedOwner');
+      this.user.next(false);
     }
-    this.user.next(user);
   }
 }
