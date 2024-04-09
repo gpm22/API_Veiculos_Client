@@ -30,7 +30,7 @@
     </tbody>
   </table>
 </div>
-<div id="user-vehicles" *ngIf="user">
+<div id="user-vehicles" *ngIf="user && user.vehicles && user.vehicles.length > 0">
   <h3>Your vehicles</h3>
 <table id="user-vehicles-table">
   <thead id="user-vehicles-table-head">
