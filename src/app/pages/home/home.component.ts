@@ -6,8 +6,6 @@ import { OwnerStateService } from '../../shared/services/owner-state.service';
 import { Router } from '@angular/router';
 import { Owner } from '../../models/owner';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { catchError } from 'rxjs';
-import { error } from 'console';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
