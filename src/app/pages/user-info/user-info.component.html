@@ -1,7 +1,22 @@
 <app-navbar></app-navbar>
 <h1>User Information</h1>
 
-<p>Name: {{user?.name}}</p>
-<p>Email: {{user?.email}}</p>
-<p>CPF: {{user?.cpf}}</p>
-<p>Birth Date: {{user?.birthDate}}</p>
+<div *ngIf="!editing" id="static-user-info">
+    <p>Name: {{user?.name}}</p>
+    <p>Email: {{user?.email}}</p>
+    <p>CPF: {{user?.cpf}}</p>
+    <p>Birth Date: {{user?.birthDate}}</p>
+    <button type="button" (click)="allowEditing()">Edit Info</button>
+</div>
+
+<form *ngIf="editing && user" id="edit-user-info" [formGroup]="editUserForm" (ngSubmit)="updateUser()">
+    Name: <input formControlName="name" type="text" />
+    <span *ngIf="editUserForm.get('name')?.invalid">Name is required!</span>
+    Email: <input formControlName="email" type="email" email />
+    <span *ngIf="editUserForm.get('email')?.invalid">Invalid email!</span>
+    CPF: <input formControlName="cpf" type="text" />
+    <span *ngIf="editUserForm.get('cpf')?.invalid">CPF is required!</span>
+    Birth Date: <input formControlName="birthDate" type="date" placeholder="dd/MM/yyyy"/> 
+    <span *ngIf="editUserForm.get('birthDate')?.invalid">Birth Date is required!</span>
+    <button [disabled]="editUserForm.invalid" type="submit">Update User</button>
+</form>
