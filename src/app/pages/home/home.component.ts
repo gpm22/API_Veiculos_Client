@@ -60,6 +60,7 @@ export class HomeComponent {
   }
 
   enableAddingUser(){
+    this.error = undefined;
     this.addingNewUser = true;
   }
 
