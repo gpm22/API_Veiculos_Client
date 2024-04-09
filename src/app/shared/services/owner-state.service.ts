@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Owner } from '../../models/owner';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Owner } from '../../models/owner';
 })
 export class OwnerStateService {
 
-  user: ReplaySubject<any> = new ReplaySubject<any>();
+  user: BehaviorSubject<any> = new BehaviorSubject(false);
   constructor() {
     let storedOwner = localStorage.getItem('storedOwner');
     if(storedOwner)
