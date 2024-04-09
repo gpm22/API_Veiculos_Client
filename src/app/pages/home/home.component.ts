@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HomeService } from './home.service';
+import { OwnerService } from '../../shared/services/owener.service';
 import { OwnerStateService } from '../../shared/services/owner-state.service';
 import { Router } from '@angular/router';
 import { Owner } from '../../models/owner';
@@ -20,7 +20,7 @@ export class HomeComponent {
   public user?: Owner;
 
   constructor(
-    private homeService: HomeService,
+    private ownerService: OwnerService,
     private ownerStateService: OwnerStateService,
     private router: Router
   ){
@@ -31,7 +31,7 @@ export class HomeComponent {
   }
 
   sendLoginRequest(){
-    this.homeService
+    this.ownerService
         .getUser(this.cpfOrEmail)
         .subscribe(owner => {
           if(owner){
