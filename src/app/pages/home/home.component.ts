@@ -6,6 +6,9 @@ import { OwnerStateService } from '../../shared/services/owner-state.service';
 import { Router } from '@angular/router';
 import { Owner } from '../../models/owner';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { catchError } from 'rxjs';
+import { error } from 'console';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -44,15 +47,16 @@ export class HomeComponent {
   sendLoginRequest(){
     this.ownerService
         .getUser(this.cpfOrEmail)
-        .subscribe(owner => {
-          if(owner){
-            this.error = undefined;
-            this.ownerStateService.setUser(owner);
-            this.routeToVehicles();
-          } else {
-            this.error = `User with data ${this.cpfOrEmail} does not exist!`;
-          }
-        });
+        .subscribe({
+          next: owner => {
+            if(owner){
+              this.error = undefined;
+              this.ownerStateService.setUser(owner);
+              this.routeToVehicles();
+            }},
+          error: (errorResponse : HttpErrorResponse) => {
+            this.error = errorResponse.error.message;;
+        }});
   }
 
   enableAddingUser(){
@@ -74,11 +78,16 @@ export class HomeComponent {
 
     this.ownerService
         .save(newUser)
-        .subscribe(owner => {
-          this.addingNewUser = false;
-          this.ownerStateService.setUser(owner);
-          this.routeToVehicles();
-        })
+        .subscribe({
+          next: owner => {
+            this.error = undefined;
+            this.addingNewUser = false;
+            this.ownerStateService.setUser(owner);
+            this.routeToVehicles();
+          },
+          error: (errorResponse : HttpErrorResponse) => {
+            this.error = errorResponse.error.message;;
+        }});
   }
 
   private routeToVehicles(){

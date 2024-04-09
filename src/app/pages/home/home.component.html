@@ -7,8 +7,8 @@
         CPF or Email
         <input type="text" autoComplete="cpf or email" [(ngModel)]="cpfOrEmail" />
     </div>
-    <div *ngIf="error" id="error">
-        {{error}}
+    <div *ngIf="error" id="login-error">
+        Login error: {{error}}
     </div>
     <button type="button" (click)="sendLoginRequest()">
         Log in
@@ -27,5 +27,8 @@
     <span *ngIf="newUserForm.get('cpf')?.invalid">CPF is required!</span>
     Birth Date: <input formControlName="birthDate" type="date" placeholder="dd/MM/yyyy"/> 
     <span *ngIf="newUserForm.get('birthDate')?.invalid">Birth Date is invalid!</span>
+    <div *ngIf="error" id="creating-user-error">
+        Login error: {{error}}
+    </div>
     <button [disabled]="newUserForm.invalid" type="submit">Add User</button>
 </form>
