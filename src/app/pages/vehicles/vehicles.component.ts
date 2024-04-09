@@ -61,11 +61,15 @@ export class VehiclesComponent{
       
     this.vehiclesService
         .addVehicleToUser(this.user.email, vehicle.id)
-        .subscribe(() => {
-          this.user?.vehicles?.push(vehicle);
-          this.ownerStateService.setUser(this.user);
-          this.removeVehicleFromArray(this.vehicles, vehicle);
-        });
+        .subscribe({
+          next: () => {
+            this.user?.vehicles?.push(vehicle);
+            this.ownerStateService.setUser(this.user);
+            this.removeVehicleFromArray(this.vehicles, vehicle);
+          },
+          error:  (errorResponse : HttpErrorResponse) => {
+            alert("Error while registering vehicle: " + errorResponse.error.message);
+          }});
   }
 
   unregisterVehicle(vehicle: Vehicle): void{
@@ -74,12 +78,17 @@ export class VehiclesComponent{
       
     this.vehiclesService
         .removeVehicleFromUser(this.user.email, vehicle.id)
-        .subscribe(() => {
+        .subscribe({
+          next: () => {
           this.vehicles.push(vehicle);
-          if(this.user && this.user.vehicles)
-            this.removeVehicleFromArray(this.user.vehicles, vehicle);
-            this.ownerStateService.setUser(this.user);
-        });
+            if(this.user && this.user.vehicles)
+              this.removeVehicleFromArray(this.user.vehicles, vehicle);
+              this.ownerStateService.setUser(this.user);
+          }, 
+          error:  (errorResponse : HttpErrorResponse) => {
+            alert("Error while unregistering vehicle: " + errorResponse.error.message);
+          }
+      });
   }
 
 
