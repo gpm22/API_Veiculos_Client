@@ -5,6 +5,7 @@ import { Owner } from '../../models/owner';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { formatDate, NgIf } from '@angular/common';
 import { FormsModule, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-info',
@@ -29,7 +30,8 @@ export class UserInfoComponent {
   constructor(
     private ownerStateService: OwnerStateService,
     private formBuilder: FormBuilder,
-    private ownerService: OwnerService
+    private ownerService: OwnerService,
+    private router: Router
   ){
     this.ownerStateService.user.subscribe(user => {
       this.user = user;
@@ -71,6 +73,20 @@ export class UserInfoComponent {
         .subscribe(owner => {
           this.editing = false;
           this.ownerStateService.setUser(owner);
+        })
+  }
+
+  removeUser(){
+    if(!this.user)
+      return;
+
+    //TODO add modal to ask user again
+
+    this.ownerService
+        .delete(this.user.email)
+        .subscribe(() => {
+          this.ownerStateService.setUser(undefined);
+          this.router.navigate(["/home"]);
         })
   }
 

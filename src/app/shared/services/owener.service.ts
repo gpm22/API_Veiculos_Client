@@ -25,6 +25,10 @@ export class OwnerService {
   update(emailOrCPF: string, owner: Owner) {
     return this.httpClient.put<Owner>(this.createOwnerURL(emailOrCPF), owner);
   }
+  
+  delete(emailOrCPF: string) {
+    return this.httpClient.delete<Owner>(this.createOwnerURL(emailOrCPF));
+  }
 
   private createOwnerURL = (emailOrCpf: string) => 
     `${this.base_owner_path_url}/${emailOrCpf}`;
