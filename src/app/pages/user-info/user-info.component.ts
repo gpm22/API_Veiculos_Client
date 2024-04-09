@@ -90,10 +90,14 @@ export class UserInfoComponent {
 
     this.ownerService
         .delete(this.user.email)
-        .subscribe(() => {
-          this.ownerStateService.setUser(undefined);
-          this.router.navigate(["/home"]);
-        })
+        .subscribe({
+          next: () => {
+            this.ownerStateService.setUser(undefined);
+            this.router.navigate(["/home"]);
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            alert("Error while deleting user: " + errorResponse.error.message);
+          }})
   }
 
   private formatDateFromYYYY_MM_DD(strDate?: string | null) : string {
