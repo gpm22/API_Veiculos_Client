@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { formatDate, NgIf } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Owner } from '../../../models/owner';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-owner-form',
@@ -10,7 +11,7 @@ import { Owner } from '../../../models/owner';
   templateUrl: './owner-form.component.html',
   styleUrl: './owner-form.component.scss'
 })
-export class OwnerFormComponent {
+export class OwnerFormComponent implements OnInit {
 
   @Input() error?: string;
   @Input({required: true}) submitMessage!: string;
@@ -23,6 +24,16 @@ export class OwnerFormComponent {
   constructor(
     private formBuilder: FormBuilder
   ){
+    this.formGroup = this.formBuilder.group(
+      {
+        name: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        cpf: ['', [Validators.required]],
+        birthDate: [formatDate(new Date(), 'yyyy-MM-dd', 'en'), [Validators.required]],
+      })
+  }
+
+  ngOnInit(): void {
     if(this.user){
       this.formGroup = this.formBuilder.group(
         {
@@ -30,23 +41,12 @@ export class OwnerFormComponent {
           email: [this.user.email, [Validators.email, Validators.required]],
           cpf: [this.user.cpf, Validators.required],
           birthDate: [this.formatDateFromDD_MM_YY(this.user.birthDate), Validators.required],
-        }
-      );
-    } else {
-      
-    this.formGroup = this.formBuilder.group(
-        {
-          name: ['', [Validators.required]],
-          email: ['', [Validators.required, Validators.email]],
-          cpf: ['', [Validators.required]],
-          birthDate: [formatDate(new Date(), 'yyyy-MM-dd', 'en'), [Validators.required]],
-        }
-  )
-    }
+        });
+    } 
   }
 
   emitSubmit(){
-    if(this.formGroup.invalid)
+    if(!this.formGroup || this.formGroup.invalid)
       return;
 
     let formValue = this.formGroup.value;
