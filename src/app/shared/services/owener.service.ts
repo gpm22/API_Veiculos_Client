@@ -28,4 +28,11 @@ export class OwnerService {
 
   private createOwnerURL = (emailOrCpf: string) => 
     `${this.base_owner_path_url}/${emailOrCpf}`;
+
+  areUsersEqual(firstUser?: Owner, secondUser?: Owner){
+    if(!(firstUser && secondUser))
+      return false;
+
+    return firstUser.birthDate == secondUser.birthDate && firstUser.name == secondUser.name && firstUser.cpf == secondUser.cpf && firstUser.email == secondUser.email;
+  }
 }

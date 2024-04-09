@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OwnerStateService } from '../../shared/services/owner-state.service';
+import { OwnerService } from '../../shared/services/owener.service';
 import { Owner } from '../../models/owner';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { formatDate, NgIf } from '@angular/common';
@@ -27,7 +28,8 @@ export class UserInfoComponent {
 
   constructor(
     private ownerStateService: OwnerStateService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private ownerService: OwnerService
   ){
     this.ownerStateService.user.subscribe(user => {
       this.user = user;
@@ -36,7 +38,7 @@ export class UserInfoComponent {
           name: [user.name, Validators.required],
           email: [user.email, [Validators.email, Validators.required]],
           cpf: [user.cpf, Validators.required],
-          birthDate: [formatDate(new Date(user.birthDate), 'yyyy-MM-dd', 'en'), Validators.required],
+          birthDate: [this.formatDateFromDD_MM_YY(user.birthDate), Validators.required],
         }
     )})
     this.editing = false;
@@ -47,11 +49,48 @@ export class UserInfoComponent {
   }
 
   updateUser(){
-    console.log("updating")
-    console.log(this.user)
-    console.log(this.editUserForm.valid)
-    console.log(this.editUserForm.errors)
-    console.log(this.editUserForm.get('email')?.valid)
-    console.log(this.editUserForm.value)
+    if(!this.user || this.editUserForm.invalid)
+      return;
+
+    let formValue = this.editUserForm.value;
+
+    let updateUser: Owner = {
+      name: formValue.name? formValue.name : "",
+      email: formValue.email? formValue.email: "",
+      cpf: formValue.cpf? formValue.cpf: "",
+      birthDate: this.formatDateFromYYYY_MM_DD(formValue.birthDate)
+    };
+
+    if(this.ownerService.areUsersEqual(updateUser, this.user)){
+      this.editing = false;
+      return;
+    }
+
+    this.ownerService
+        .update(this.user.email, updateUser)
+        .subscribe(owner => {
+          this.editing = false;
+          this.ownerStateService.setUser(owner);
+        })
+  }
+
+  private formatDateFromYYYY_MM_DD(strDate?: string | null) : string {
+    if(!strDate)
+      return "";
+
+    let year = strDate.slice(0, 4);
+    let month = strDate.slice(5, 7);
+    let day = strDate.slice(-2);
+    return `${day}/${month}/${year}`;
+  }
+
+  private formatDateFromDD_MM_YY(strDate?: string | null) : string {
+    if(!strDate)
+      return "";
+
+    let year = strDate.slice(-4);
+    let month = strDate.slice(3, 5);
+    let day = strDate.slice(0,2);
+    return `${year}-${month}-${day}`;
   }
 }
