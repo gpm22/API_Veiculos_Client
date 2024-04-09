@@ -28,7 +28,6 @@ export class UserInfoComponent {
     }
   )
 
-
   constructor(
     private ownerStateService: OwnerStateService,
     private formBuilder: FormBuilder,
