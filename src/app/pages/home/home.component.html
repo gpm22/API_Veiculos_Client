@@ -18,18 +18,7 @@
     </button>
     </div>
 </div>
-<form *ngIf="addingNewUser" id="edit-user-info" [formGroup]="newUserForm" (ngSubmit)="addUser()">
-    Name: <input formControlName="name" type="text" />
-    <span *ngIf="newUserForm.get('name')?.invalid">Name is required!</span>
-    Email: <input formControlName="email" type="email" email />
-    <span *ngIf="newUserForm.get('email')?.invalid">Invalid email!</span>
-    CPF: <input formControlName="cpf" type="text" />
-    <span *ngIf="newUserForm.get('cpf')?.invalid">CPF is required!</span>
-    Birth Date: <input formControlName="birthDate" type="date" placeholder="dd/MM/yyyy"/> 
-    <span *ngIf="newUserForm.get('birthDate')?.invalid">Birth Date is invalid!</span>
-    <div *ngIf="error" id="creating-user-error">
-        Login error: {{error}}
-    </div>
-    <button [disabled]="newUserForm.invalid" type="submit">Add User</button>
-    <button (click)="disallowAddingUser()" type="button">Cancel</button>
-</form>
+<app-owner-form *ngIf="addingNewUser" [error]="error"
+    submitMessage="Add User" (cancel)="disallowAddingUser()" 
+    (onSubmit)="addUser($event)" >
+</app-owner-form>

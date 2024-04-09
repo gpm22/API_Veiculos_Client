@@ -1,0 +1,15 @@
+<form id="edit-user-info" [formGroup]="formGroup" (ngSubmit)="emitSubmit()">
+    Name: <input formControlName="name" type="text" />
+    <span *ngIf="formGroup.get('name')?.invalid">Name is required!</span>
+    Email: <input formControlName="email" type="email" email />
+    <span *ngIf="formGroup.get('email')?.invalid">Invalid email!</span>
+    CPF: <input formControlName="cpf" type="text" />
+    <span *ngIf="formGroup.get('cpf')?.invalid">CPF is required!</span>
+    Birth Date: <input formControlName="birthDate" type="date" placeholder="dd/MM/yyyy"/> 
+    <span *ngIf="formGroup.get('birthDate')?.invalid">Birth Date is invalid!</span>
+    <div *ngIf="error" id="creating-user-error">
+        Login error: {{error}}
+    </div>
+    <button [disabled]="formGroup.invalid" type="submit">{{submitMessage}}</button>
+    <button (click)="emitCancel()" type="button">Cancel</button>
+</form>
