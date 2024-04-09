@@ -1,4 +1,4 @@
-<div id="login-wrapper">
+<div *ngIf="!addingNewUser" id="login-wrapper">
     <div id="invisible-header"></div>
     <div className="login-block">
     <h1>System Access</h1>
@@ -13,5 +13,19 @@
     <button type="button" (click)="sendLoginRequest()">
         Log in
     </button>
+    <button type="button" (click)="enableAddingUser()">
+        Create User
+    </button>
     </div>
 </div>
+<form *ngIf="addingNewUser" id="edit-user-info" [formGroup]="newUserForm" (ngSubmit)="addUser()">
+    Name: <input formControlName="name" type="text" />
+    <span *ngIf="newUserForm.get('name')?.invalid">Name is required!</span>
+    Email: <input formControlName="email" type="email" email />
+    <span *ngIf="newUserForm.get('email')?.invalid">Invalid email!</span>
+    CPF: <input formControlName="cpf" type="text" />
+    <span *ngIf="newUserForm.get('cpf')?.invalid">CPF is required!</span>
+    Birth Date: <input formControlName="birthDate" type="date" placeholder="dd/MM/yyyy"/> 
+    <span *ngIf="newUserForm.get('birthDate')?.invalid">Birth Date is invalid!</span>
+    <button [disabled]="newUserForm.invalid" type="submit">Add User</button>
+</form>
