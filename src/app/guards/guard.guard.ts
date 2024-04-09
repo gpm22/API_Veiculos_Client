@@ -26,9 +26,21 @@ class PermissionService {
     this.router.navigate(['/unauthorized']);
     return false;
   }
+
+  canActivateLogged(){
+    if(!this.user)
+      return true;
+
+    this.router.navigate(['/vehicles']);
+    return false;
+  }
 }
 
 
 export const apiGuard: CanActivateFn = (route: any, state: any) => {
   return inject(PermissionService).canActivate();
+};
+
+export const apiGuardLogged: CanActivateFn = (route: any, state: any) => {
+  return inject(PermissionService).canActivateLogged();
 };

@@ -4,7 +4,7 @@ import { VehiclesComponent } from './pages/vehicles/vehicles.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { UserInfoComponent } from './pages/user-info/user-info.component';
-import { apiGuard } from './guards/guard.guard';
+import { apiGuard, apiGuardLogged } from './guards/guard.guard';
 
 export const routes: Routes = [
     {
@@ -15,7 +15,8 @@ export const routes: Routes = [
     {
         path: 'home',
         title:"home",
-        component: HomeComponent
+        component: HomeComponent,
+        canActivate: [apiGuardLogged]
     },
     {
         path: 'vehicles',
@@ -32,7 +33,8 @@ export const routes: Routes = [
     {
         path: 'unauthorized',
         title: 'unauthorized',
-        component: UnauthorizedComponent
+        component: UnauthorizedComponent,
+        canActivate: [apiGuardLogged]
     },
     {
         path: '**',
