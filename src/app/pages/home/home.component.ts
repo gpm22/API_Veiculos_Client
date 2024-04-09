@@ -76,7 +76,6 @@ export class HomeComponent {
         .save(newUser)
         .subscribe(owner => {
           this.addingNewUser = false;
-          owner.vehicles = [];
           this.ownerStateService.setUser(owner);
           this.routeToVehicles();
         })
