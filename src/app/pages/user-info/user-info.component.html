@@ -10,18 +10,7 @@
     <button type="button" (click)="removeUser()">Remove User</button>
 </div>
 
-<form *ngIf="editing" id="edit-user-info" [formGroup]="editUserForm" (ngSubmit)="updateUser()">
-    Name: <input formControlName="name" type="text" />
-    <span *ngIf="editUserForm.get('name')?.invalid">Name is required!</span>
-    Email: <input formControlName="email" type="email" email />
-    <span *ngIf="editUserForm.get('email')?.invalid">Invalid email!</span>
-    CPF: <input formControlName="cpf" type="text" />
-    <span *ngIf="editUserForm.get('cpf')?.invalid">CPF is required!</span>
-    Birth Date: <input formControlName="birthDate" type="date" placeholder="dd/MM/yyyy"/> 
-    <span *ngIf="editUserForm.get('birthDate')?.invalid">Birth Date is invalid!</span>
-    <div *ngIf="error" id="editing-user-error">
-        Error: {{error}}
-    </div>
-    <button [disabled]="editUserForm.invalid" type="submit">Update User</button>
-    <button (click)="disallowEditing()" type="button">Cancel</button>
-</form>
+<app-owner-form *ngIf="editing" [error]="error" [user]="user"
+    submitMessage="Update User" (cancel)="disallowEditing()" 
+    (onSubmit)="updateUser($event)" >
+</app-owner-form>
