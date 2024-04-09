@@ -10,7 +10,7 @@
     <button type="button" (click)="removeUser()">Remove User</button>
 </div>
 
-<form *ngIf="editing && user" id="edit-user-info" [formGroup]="editUserForm" (ngSubmit)="updateUser()">
+<form *ngIf="editing" id="edit-user-info" [formGroup]="editUserForm" (ngSubmit)="updateUser()">
     Name: <input formControlName="name" type="text" />
     <span *ngIf="editUserForm.get('name')?.invalid">Name is required!</span>
     Email: <input formControlName="email" type="email" email />
@@ -18,6 +18,6 @@
     CPF: <input formControlName="cpf" type="text" />
     <span *ngIf="editUserForm.get('cpf')?.invalid">CPF is required!</span>
     Birth Date: <input formControlName="birthDate" type="date" placeholder="dd/MM/yyyy"/> 
-    <span *ngIf="editUserForm.get('birthDate')?.invalid">Birth Date is required!</span>
+    <span *ngIf="editUserForm.get('birthDate')?.invalid">Birth Date is invalid!</span>
     <button [disabled]="editUserForm.invalid" type="submit">Update User</button>
 </form>
