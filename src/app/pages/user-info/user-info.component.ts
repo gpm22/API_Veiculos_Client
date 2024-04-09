@@ -6,6 +6,7 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
 import { formatDate, NgIf } from '@angular/common';
 import { FormsModule, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-info',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
   styleUrl: './user-info.component.scss'
 })
 export class UserInfoComponent {
+  public error?: string;
   public user?: Owner;
   public editing: boolean;
   public editUserForm = this.formBuilder.group(
@@ -70,10 +72,14 @@ export class UserInfoComponent {
 
     this.ownerService
         .update(this.user.email, updateUser)
-        .subscribe(owner => {
-          this.editing = false;
-          this.ownerStateService.setUser(owner);
-        })
+        .subscribe({
+          next: owner => {
+            this.editing = false;
+            this.ownerStateService.setUser(owner);
+          },
+          error: (errorResponse : HttpErrorResponse) => {
+            this.error = errorResponse.error.message;
+        }})
   }
 
   removeUser(){

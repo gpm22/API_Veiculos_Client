@@ -19,5 +19,8 @@
     <span *ngIf="editUserForm.get('cpf')?.invalid">CPF is required!</span>
     Birth Date: <input formControlName="birthDate" type="date" placeholder="dd/MM/yyyy"/> 
     <span *ngIf="editUserForm.get('birthDate')?.invalid">Birth Date is invalid!</span>
+    <div *ngIf="error" id="editing-user-error">
+        Error: {{error}}
+    </div>
     <button [disabled]="editUserForm.invalid" type="submit">Update User</button>
 </form>
