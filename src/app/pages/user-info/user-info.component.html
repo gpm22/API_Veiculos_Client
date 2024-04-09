@@ -23,4 +23,5 @@
         Error: {{error}}
     </div>
     <button [disabled]="editUserForm.invalid" type="submit">Update User</button>
+    <button (click)="disallowEditing()" type="button">Cancel</button>
 </form>

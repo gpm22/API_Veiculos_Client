@@ -49,7 +49,12 @@ export class UserInfoComponent {
   }
 
   allowEditing(){
+    this.error = undefined;
     this.editing = true;
+  }
+
+  disallowEditing(){
+    this.editing = false;
   }
 
   updateUser(){
