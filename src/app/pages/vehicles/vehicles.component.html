@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <h2 *ngIf="user">Hello, {{user.name}}!</h2>
 
-<div *ngIf="vehicles.length > 0" id="registered-vehicles">
+<div *ngIf="!errorRegistedVehicles && vehicles.length > 0" id="registered-vehicles">
   <h3>Registered Vehicles in Platform</h3>
   <table id="vehicles-table">
     <thead id="vehicles-table-head">
@@ -29,6 +29,9 @@
       </tr>
     </tbody>
   </table>
+</div>
+<div id="error-registered-vehicles" *ngIf="errorRegistedVehicles">
+  Error while fetching registered vehicles: {{errorRegistedVehicles}}
 </div>
 <div id="user-vehicles" *ngIf="user && user.vehicles && user.vehicles.length > 0">
   <h3>Your vehicles</h3>

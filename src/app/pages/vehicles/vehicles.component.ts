@@ -6,6 +6,7 @@ import { OwnerStateService } from '../../shared/services/owner-state.service';
 import { Owner } from '../../models/owner';
 import { ChangeDetectorRef } from '@angular/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-vehicles',
@@ -18,6 +19,7 @@ export class VehiclesComponent{
 
   public vehicles: Vehicle[] = [];
   public user?: Owner;
+  public errorRegistedVehicles: string = '';
 
   constructor(
     private vehiclesService: VehiclesService,
@@ -34,15 +36,22 @@ export class VehiclesComponent{
   updatedVehicles(){
     this.vehiclesService
         .getAll()
-        .subscribe(vehicles => {
-          if(this.user?.vehicles){
-            let map = this.user?.vehicles?.map( v => v.model );
-            this.vehicles = vehicles.filter(v => !map.includes(v.model));
-          } else {
-            this.vehicles = vehicles
-          }
-          this.changeDetectorRef.detectChanges();
-        });
+        .subscribe({
+          next: vehicles => {
+            if(this.user?.vehicles){
+              let map = this.user?.vehicles?.map( v => v.model );
+              this.vehicles = vehicles.filter(v => !map.includes(v.model));
+            } else {
+              this.vehicles = vehicles
+            }
+
+            this.errorRegistedVehicles = '';
+            this.changeDetectorRef.detectChanges();
+          },
+          error: (errorResponse : HttpErrorResponse) => {
+            this.errorRegistedVehicles = errorResponse.error.message;;
+        }
+      });
   }
 
 
