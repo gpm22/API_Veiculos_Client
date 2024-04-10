@@ -1,24 +1,29 @@
 <app-navbar></app-navbar>
-<h2 *ngIf="user">Hello, {{user.name}}!</h2>
-<button *ngIf="!addingNewVehicle" type="button" id="add-new-vehicle" (click)="allowAddingVehicle()">
-  Add New Vehicle
-</button>
-<app-add-vehicle (cancel)="disallowAddingVehicle()" (submitVehicle)="onVehicleAdded($event)"  
-  *ngIf="addingNewVehicle"></app-add-vehicle>
-<div *ngIf="!addingNewVehicle" id="vehicle-tables">
-  <div id="error-registered-vehicles" *ngIf="errorRegistedVehicles">
-    Error while fetching registered vehicles: {{errorRegistedVehicles}}
-  </div>
-  <div id="user-vehicles" *ngIf="user && user.vehicles && user.vehicles.length > 0">
-    <h3>Your vehicles</h3>
-    <app-vehicles-table [vehicles]="user.vehicles" (clickButton)="unregisterVehicle($event)"
-        buttonMessage="Remove From User">
-    </app-vehicles-table>
-  </div>
-  <div *ngIf="!errorRegistedVehicles && vehicles.length > 0" id="registered-vehicles">
-    <h3>Other Registered Vehicles in Platform</h3>
-    <app-vehicles-table [vehicles]="vehicles" (clickButton)="registerVehicle($event)"
-        buttonMessage="Add to User">
-    </app-vehicles-table>
+<div id="vehicles-header">
+  <h2 *ngIf="user">Hello, {{user.name}}!</h2>
+  <button *ngIf="!addingNewVehicle" type="button" class="btn btn-light"
+    id="add-new-vehicle" (click)="allowAddingVehicle()">
+    Add New Vehicle
+  </button>
+</div>
+<div id="vehicles-container">
+  <app-add-vehicle (cancel)="disallowAddingVehicle()" (submitVehicle)="onVehicleAdded($event)"  
+    *ngIf="addingNewVehicle"></app-add-vehicle>
+  <div *ngIf="!addingNewVehicle" id="vehicle-tables">
+    <div id="error-registered-vehicles" *ngIf="errorRegistedVehicles">
+      Error while fetching registered vehicles: {{errorRegistedVehicles}}
+    </div>
+    <div id="user-vehicles" *ngIf="user && user.vehicles && user.vehicles.length > 0">
+      <h3>Your vehicles</h3>
+      <app-vehicles-table [vehicles]="user.vehicles" (clickButton)="unregisterVehicle($event)"
+          buttonMessage="Remove From User">
+      </app-vehicles-table>
+    </div>
+    <div *ngIf="!errorRegistedVehicles && vehicles.length > 0" id="registered-vehicles">
+      <h3>Other Registered Vehicles in Platform</h3>
+      <app-vehicles-table [vehicles]="vehicles" (clickButton)="registerVehicle($event)"
+          buttonMessage="Add to User">
+      </app-vehicles-table>
+    </div>
   </div>
 </div>
