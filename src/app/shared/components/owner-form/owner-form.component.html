@@ -1,15 +1,22 @@
-<form id="edit-user-info" [formGroup]="formGroup" (ngSubmit)="emitSubmit()">
-    Name: <input formControlName="name" type="text" />
-    <span *ngIf="formGroup.get('name')?.invalid">Name is required!</span>
-    Email: <input formControlName="email" type="email" email />
-    <span *ngIf="formGroup.get('email')?.invalid">Invalid email!</span>
-    CPF: <input formControlName="cpf" type="text" />
-    <span *ngIf="formGroup.get('cpf')?.invalid">CPF is required!</span>
-    Birth Date: <input formControlName="birthDate" type="date" placeholder="dd/MM/yyyy"/> 
-    <span *ngIf="formGroup.get('birthDate')?.invalid">Birth Date is invalid!</span>
+<form id="edit-user-info" class="form-group" [formGroup]="formGroup" (ngSubmit)="emitSubmit()">
+    <label for="edit-user-name">Name: </label>
+    <input id="edit-user-name" formControlName="name" type="text" 
+        class="form-control" placeholder="Enter name here"/>
+    <p *ngIf="formGroup.get('name')?.invalid">Name is required!</p>
+    <label for="edit-user-email">Email: </label>
+    <input id="edit-user-email" formControlName="email" type="email" 
+        email class="form-control" placeholder="example@example.com"/>
+    <p *ngIf="formGroup.get('email')?.invalid">Invalid email!</p>
+    <label for="edit-user-cpf">CPF: </label>
+    <input id="edit-user-cpf" formControlName="cpf" placeholder="000.000.000-00" 
+        type="text" class="form-control"/>
+    <p *ngIf="formGroup.get('cpf')?.invalid">CPF is required!</p>
+    <label for="edit-user-birthdate">Birth Date: </label>
+    <input if="edit-user-birthdate" formControlName="birthDate" type="date" class="form-control"/> 
+    <p *ngIf="formGroup.get('birthDate')?.invalid">Birth Date is invalid!</p>
     <div *ngIf="error" id="creating-user-error">
         Error: {{error}}
     </div>
-    <button [disabled]="formGroup.invalid" type="submit">{{submitMessage}}</button>
-    <button (click)="emitCancel()" type="button">Cancel</button>
+    <button [disabled]="formGroup.invalid" type="submit" class="btn btn-light">{{submitMessage}}</button>
+    <button (click)="emitCancel()" type="button" class="btn btn-danger">Cancel</button>
 </form>
