@@ -13,15 +13,16 @@
     <div id="error-registered-vehicles" *ngIf="errorRegistedVehicles">
       Error while fetching registered vehicles: {{errorRegistedVehicles}}
     </div>
-    <div id="user-vehicles" *ngIf="user && user.vehicles && user.vehicles.length > 0">
-      <h3>Your vehicles</h3>
-      <app-vehicles-table [vehicles]="user.vehicles" (clickButton)="unregisterVehicle($event)"
+    <div *ngIf="user && user.vehicles && user.vehicles.length > 0">
+      <h3><label for="user-vehicles">Your vehicles</label></h3>
+      <app-vehicles-table id="user-vehicles"  [vehicles]="user.vehicles" (clickButton)="unregisterVehicle($event)"
           buttonMessage="Remove From User">
       </app-vehicles-table>
     </div>
-    <div *ngIf="!errorRegistedVehicles && vehicles.length > 0" id="registered-vehicles">
-      <h3>Other Registered Vehicles in Platform</h3>
-      <app-vehicles-table [vehicles]="vehicles" (clickButton)="registerVehicle($event)"
+    <br />
+    <div *ngIf="!errorRegistedVehicles && vehicles.length > 0">
+      <h3><label for="registered-vehicles">Other Registered Vehicles in Platform</label></h3>
+      <app-vehicles-table  id="registered-vehicles" [vehicles]="vehicles" (clickButton)="registerVehicle($event)"
           buttonMessage="Add to User">
       </app-vehicles-table>
     </div>
