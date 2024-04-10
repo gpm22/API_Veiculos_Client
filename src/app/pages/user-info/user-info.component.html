@@ -1,13 +1,13 @@
 <app-navbar></app-navbar>
-<h1>User Information</h1>
+<h1 id="user-header">User Information</h1>
 
 <div *ngIf="!editing" id="static-user-info">
-    <p>Name: {{user?.name}}</p>
-    <p>Email: {{user?.email}}</p>
-    <p>CPF: {{user?.cpf}}</p>
-    <p>Birth Date: {{user?.birthDate}}</p>
-    <button type="button" (click)="allowEditing()">Edit Info</button>
-    <button type="button" (click)="removeUser()">Remove User</button>
+    <p><span class="title">Name: </span>{{user?.name}}</p>
+    <p><span class="title">Email: </span>{{user?.email}}</p>
+    <p><span class="title">CPF: </span>{{user?.cpf}}</p>
+    <p><span class="title">Birth Date: </span>{{user?.birthDate}}</p>
+    <button type="button" class="btn btn-light" (click)="allowEditing()">Edit Info</button>
+    <button type="button" class="btn btn-danger" (click)="removeUser()">Remove User</button>
 </div>
 
 <app-owner-form *ngIf="editing" [error]="error" [user]="user"
