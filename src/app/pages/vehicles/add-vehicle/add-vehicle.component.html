@@ -1,1 +1,17 @@
-<p>add-vehicle works!</p>
+<form id="add-vehicle-form" (ngSubmit)="addVehicle()">
+
+    <div id="select-types-container">
+        <label for="select-itypes">Choose Type</label>
+        <select  name="types" id="select-types" [(ngModel)]="vehicleType">
+            <option *ngFor="let typeKey of objectKeys(vehicleTypes)"
+                value="vehicleTypes[typeKey]">
+                {{typeKey}}
+            </option>
+        </select>
+    </div>
+    <p *ngIf="vehicleType != ''">Choose Brand<input/></p>
+    <p *ngIf="vehicleBrand != '' ">Choose Model<input/></p>
+    <p *ngIf="vehicleModel != ''">Choose year<input/></p>
+    <button type="submit">Add Vehicle</button>
+    <button (click)="emitCancel()" type="button">Cancel</button>
+</form>
