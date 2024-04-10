@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <h2 *ngIf="user">Hello, {{user.name}}!</h2>
-<button type="button" id="add-new-vehicle" (click)="allowAddingVehicle()">
+<button *ngIf="!addingNewVehicle" type="button" id="add-new-vehicle" (click)="allowAddingVehicle()">
   Add New Vehicle
 </button>
 <app-add-vehicle (cancel)="disallowAddingVehicle()"  
