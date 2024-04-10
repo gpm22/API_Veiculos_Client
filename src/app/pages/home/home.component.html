@@ -3,17 +3,18 @@
         <h1>System Access</h1>
         <br />
         <div>
-            CPF or Email
+            <label for="#input-login">CPF or Email</label>
             <br />
-            <input type="text" autoComplete="cpf or email" [(ngModel)]="cpfOrEmail" />
+            <input type="text" id="input-login" autoComplete="cpf or email" [(ngModel)]="cpfOrEmail" />
         </div>
         <div *ngIf="error" id="login-error">
             Login error: {{error}}
         </div>
-        <button type="button" (click)="sendLoginRequest()">
+        <br />
+        <button type="button" class="btn btn-light login-btn" (click)="sendLoginRequest()">
             Log in
         </button>
-        <button type="button" (click)="enableAddingUser()">
+        <button type="button" class="btn btn-light login-btn" (click)="enableAddingUser()">
             Create User
         </button>
     </div>
