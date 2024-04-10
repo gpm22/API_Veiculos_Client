@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { VehicleBrand, VehicleModel, VehicleYear } from '../../models/api-fipe/models';
+import { ModelYear, VehicleBrand, VehicleModel, VehicleYear } from '../../models/api-fipe/models';
 import { environment } from '../../app.config';
 import { Observable } from 'rxjs';
 
@@ -17,8 +17,8 @@ export class ApiFipeClientService {
     return this.httpClient.get<VehicleBrand[]>(this.brandURL(vehicleType));
   }
 
-  getModels(vehicleType: string, brandCode: string ): Observable<VehicleModel[]>{
-    return this.httpClient.get<VehicleModel[]>(this.modelURL(vehicleType, brandCode));
+  getModels(vehicleType: string, brandCode: string ): Observable<ModelYear>{
+    return this.httpClient.get<ModelYear>(this.modelURL(vehicleType, brandCode));
   }
 
   getYears(vehicleType: string, brandCode: string, modelCode: string ) : Observable<VehicleYear[]>{
