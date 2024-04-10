@@ -1,4 +1,4 @@
-<div id="select-{{attribute}}-container">
+<div id="select-{{attribute}}-container" class="select-vehicle">
     <label for="select-{{attribute}}">Choose {{attribute? attribute.charAt(0).toUpperCase() + attribute.slice(1) : ""}}</label>
     <select class="form-control" (change)="emitPopulate()" 
         name="{{attribute}}s" id="select-{{attribute}}" [(ngModel)]="attributeHolder">
