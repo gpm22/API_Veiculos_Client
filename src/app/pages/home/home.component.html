@@ -1,21 +1,21 @@
-<div *ngIf="!addingNewUser" id="login-wrapper">
-    <div id="invisible-header"></div>
-    <div className="login-block">
-    <h1>System Access</h1>
-    <br />
-    <div>
-        CPF or Email
-        <input type="text" autoComplete="cpf or email" [(ngModel)]="cpfOrEmail" />
-    </div>
-    <div *ngIf="error" id="login-error">
-        Login error: {{error}}
-    </div>
-    <button type="button" (click)="sendLoginRequest()">
-        Log in
-    </button>
-    <button type="button" (click)="enableAddingUser()">
-        Create User
-    </button>
+<div *ngIf="!addingNewUser" id="login-wrapper" class="jumbotron-fluid fill">
+    <div class="login-block">
+        <h1>System Access</h1>
+        <br />
+        <div>
+            CPF or Email
+            <br />
+            <input type="text" autoComplete="cpf or email" [(ngModel)]="cpfOrEmail" />
+        </div>
+        <div *ngIf="error" id="login-error">
+            Login error: {{error}}
+        </div>
+        <button type="button" (click)="sendLoginRequest()">
+            Log in
+        </button>
+        <button type="button" (click)="enableAddingUser()">
+            Create User
+        </button>
     </div>
 </div>
 <app-owner-form *ngIf="addingNewUser" [error]="error"
