@@ -8,11 +8,12 @@ import { ChangeDetectorRef } from '@angular/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
+import { VehiclesTableComponent } from './vehicles-table/vehicles-table.component';
 
 @Component({
   selector: 'app-vehicles',
   standalone: true,
-  imports: [NgFor, NgIf, NavbarComponent, AddVehicleComponent],
+  imports: [NgFor, NgIf, NavbarComponent, AddVehicleComponent, VehiclesTableComponent],
   templateUrl: './vehicles.component.html',
   styleUrl: './vehicles.component.scss'
 })
@@ -106,7 +107,6 @@ export class VehiclesComponent{
       });
   }
 
-
   private removeVehicleFromArray(arr: Vehicle[], vehicle: Vehicle){
     let vehicleIndex = arr.indexOf(vehicle);
     if(vehicleIndex > -1)
@@ -114,23 +114,4 @@ export class VehiclesComponent{
     
   }
 
-  rotationDayMap(day: number){
-    switch(day){
-        case 2: return "Monday"
-        case 3: return "Tuesday"
-        case 4: return "Wednesday"
-        case 5: return "Thursday"
-        case 6: return "Friday"
-        default: return "None"
-    }
-  }
-
-  typeMap(type: string){
-    switch(type){
-        case "carros": return "Car"
-        case "motos": return "Motocycle"
-        case "caminhoes": return "Truck"
-        default: return "None"
-    }
-  }
 }

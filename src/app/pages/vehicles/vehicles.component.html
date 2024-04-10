@@ -6,65 +6,19 @@
 <app-add-vehicle (cancel)="disallowAddingVehicle()" (submitVehicle)="onVehicleAdded($event)"  
   *ngIf="addingNewVehicle"></app-add-vehicle>
 <div *ngIf="!addingNewVehicle" id="vehicle-tables">
-  <div *ngIf="!errorRegistedVehicles && vehicles.length > 0" id="registered-vehicles">
-    <h3>Registered Vehicles in Platform</h3>
-    <table id="vehicles-table">
-      <thead id="vehicles-table-head">
-          <tr>
-            <th>Model</th>
-            <th>Brand</th>
-            <th>Year</th>
-            <th>Type</th>
-            <th>Price</th>
-            <th>Rotation Day</th>
-            <th>Is rotation actice?</th>
-            <th></th>
-          </tr>
-      </thead>
-      <tbody id="vehicles-table-body">
-        <tr *ngFor="let vehicle of vehicles">
-          <td>{{vehicle.model}}</td>
-          <td>{{vehicle.brand}}</td>
-          <td>{{vehicle.year}}</td>
-          <td>{{typeMap(vehicle.type)}}</td>
-          <td>{{vehicle.price? vehicle.price : "-"}}</td>
-          <td>{{vehicle.rotationDay? rotationDayMap(vehicle.rotationDay) : "-"}}</td>
-          <td>{{vehicle.rotationActive === undefined? "-" : vehicle.rotationActive? "Yes" : "No"}}</td>
-          <td><button type="button" (click)="registerVehicle(vehicle)">Add to User</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
   <div id="error-registered-vehicles" *ngIf="errorRegistedVehicles">
     Error while fetching registered vehicles: {{errorRegistedVehicles}}
   </div>
   <div id="user-vehicles" *ngIf="user && user.vehicles && user.vehicles.length > 0">
     <h3>Your vehicles</h3>
-  <table id="user-vehicles-table">
-    <thead id="user-vehicles-table-head">
-        <tr>
-          <th>Model</th>
-          <th>Brand</th>
-          <th>Year</th>
-          <th>Type</th>
-          <th>Price</th>
-          <th>Rotation Day</th>
-          <th>Is rotation actice?</th>
-          <th></th>
-        </tr>
-    </thead>
-    <tbody id="user-vehicles-table-body">
-      <tr *ngFor="let vehicle of user.vehicles">
-        <td>{{vehicle.model}}</td>
-        <td>{{vehicle.brand}}</td>
-        <td>{{vehicle.year}}</td>
-        <td>{{typeMap(vehicle.type)}}</td>
-        <td>{{vehicle.price? vehicle.price : "-"}}</td>
-        <td>{{vehicle.rotationDay? rotationDayMap(vehicle.rotationDay) : "-"}}</td>
-        <td>{{vehicle.rotationActive === undefined? "-" : vehicle.rotationActive? "Yes" : "No"}}</td>
-        <td><button type="button" (click)="unregisterVehicle(vehicle)">Remove From User</button></td>
-      </tr>
-    </tbody>
-  </table>
+    <app-vehicles-table [vehicles]="user.vehicles" (clickButton)="unregisterVehicle($event)"
+        buttonMessage="Remove From User">
+    </app-vehicles-table>
+  </div>
+  <div *ngIf="!errorRegistedVehicles && vehicles.length > 0" id="registered-vehicles">
+    <h3>Other Registered Vehicles in Platform</h3>
+    <app-vehicles-table [vehicles]="vehicles" (clickButton)="registerVehicle($event)"
+        buttonMessage="Add to User">
+    </app-vehicles-table>
   </div>
 </div>
