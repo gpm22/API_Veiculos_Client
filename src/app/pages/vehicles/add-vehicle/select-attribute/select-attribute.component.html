@@ -1,0 +1,9 @@
+<div id="select-{{attribute}}-container">
+    <label for="select-{{attribute}}">Choose {{attribute? attribute.charAt(0).toUpperCase() + attribute.slice(1) : ""}}</label>
+    <select (change)="emitPopulate()" name="{{attribute}}s" id="select-{{attribute}}" [(ngModel)]="attributeHolder">
+        <option *ngFor="let element of attributeList"
+            [ngValue]="element.codigo? element: element[1]">
+            {{element.nome? element.nome : element[0]}}
+        </option>
+    </select>
+</div>

@@ -1,47 +1,19 @@
 <form id="add-vehicle-form" (ngSubmit)="addVehicle()">
-
-    <div id="select-type-container">
-        <label for="select-type">Choose Type</label>
-        <select (change)="getBrands()" name="types" id="select-type" [(ngModel)]="vehicleType">
-            <option *ngFor="let entry of objectEntries(vehicleTypes)"
-                value="{{entry[1]}}">
-                {{entry[0]}}
-            </option>
-        </select>
-    </div>
+    <app-select-attribute attribute="type" [(attributeHolder)]="vehicleType"
+        [attributeList]="objectEntries(vehicleTypes)" (populateNextList)="getBrands()">
+    </app-select-attribute>
     <br />
-    <span *ngIf="brandError != ''">Error fetching brands: {{brandError}}</span>
-    <div *ngIf="vehicleType != '' && brandError == ''" id="select-brand-container">
-        <label for="select-brand">Choose Brand</label>
-        <select (change)="getModels()" name="types" id="select-brand" [(ngModel)]="vehicleBrand">
-            <option *ngFor="let brand of vehicleBrands"
-               [ngValue]="brand">
-                {{brand.nome}}
-            </option>
-        </select>
-    </div>
+    <app-select-attribute *ngIf="vehicleType != '' && brandError == ''" attribute="brand" [(attributeHolder)]="vehicleBrand"
+        [attributeList]="vehicleBrands" (populateNextList)="getModels()">
+    </app-select-attribute>
     <br />
-    <span *ngIf="modelError != ''">Error fetching models: {{modelError}}</span>
-    <div *ngIf="vehicleBrand && modelError == ''" id="select-model-container">
-        <label for="select-model">Choose Model</label>
-        <select (change)="getYears()" name="types" id="select-model" [(ngModel)]="vehicleModel">
-            <option *ngFor="let model of vehicleModels"
-                [ngValue]="model">
-                {{model.nome}}
-            </option>
-        </select>
-    </div>    
+    <app-select-attribute *ngIf="vehicleBrand  && modelError == ''" attribute="model" [(attributeHolder)]="vehicleModel"
+        [attributeList]="vehicleModels" (populateNextList)="getYears()">
+    </app-select-attribute>
     <br />
-    <span *ngIf="yearError != ''">Error fetching years: {{yearError}}</span>
-    <div *ngIf="vehicleModel && yearError == ''" id="select-year-container">
-        <label for="select-year">Choose Year</label>
-        <select  name="types" id="select-year" [(ngModel)]="vehicleYear">
-            <option *ngFor="let year of vehicleYears"
-                [ngValue]="year">
-                {{year.nome}}
-            </option>
-        </select>
-    </div>
+    <app-select-attribute *ngIf="vehicleModel && yearError == ''" attribute="year" [(attributeHolder)]="vehicleYear"
+        [attributeList]="vehicleYears" >
+    </app-select-attribute>
     <br />
     <span *ngIf="addCarError != ''">Error adding the car: {{addCarError}}</span>
     <button type="submit">Add Vehicle</button>

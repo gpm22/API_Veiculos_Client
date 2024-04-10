@@ -6,11 +6,12 @@ import { ApiFipeClientService } from '../../../shared/services/api-fipe-client.s
 import { HttpErrorResponse } from '@angular/common/http';
 import { VehiclesService } from '../vehicles.service';
 import { Vehicle } from '../../../models/vehicle';
+import { SelectAttributeComponent } from './select-attribute/select-attribute.component';
 
 @Component({
   selector: 'app-add-vehicle',
   standalone: true,
-  imports: [NgIf, NgFor, FormsModule],
+  imports: [NgIf, NgFor, FormsModule, SelectAttributeComponent],
   templateUrl: './add-vehicle.component.html',
   styleUrl: './add-vehicle.component.scss'
 })
