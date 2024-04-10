@@ -42,6 +42,13 @@ export class AddVehicleComponent {
     private vehiclesService: VehiclesService
   ) {}
 
+  handleBrands(){
+    this.vehicleModel = undefined;
+    this.vehicleBrand = undefined;
+    this.vehicleYear = undefined;
+    this.getBrands();
+  }
+
   getBrands(){
     if(this.vehicleType == "")
       return;
@@ -59,6 +66,13 @@ export class AddVehicleComponent {
         })
   }
 
+  handleModels(){
+    this.vehicleModel = undefined;
+    this.vehicleYear = undefined;
+
+    this.getModels();
+  }
+
   getModels(){
     if(!this.vehicleBrand)
       return;
@@ -74,6 +88,12 @@ export class AddVehicleComponent {
             this.modelError = errorResponse.error.error;
           }
         })
+  }
+
+  handleYears(){
+
+    this.vehicleYear = undefined;
+    this.getYears();
   }
 
   getYears(){

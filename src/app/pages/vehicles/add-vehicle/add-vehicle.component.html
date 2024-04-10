@@ -1,12 +1,12 @@
 <form id="add-vehicle-form" class="form-group" (ngSubmit)="addVehicle()">
     <app-select-attribute attribute="type" [(attributeHolder)]="vehicleType"
-        [attributeList]="objectEntries(vehicleTypes)" (populateNextList)="getBrands()">
+        [attributeList]="objectEntries(vehicleTypes)" (populateNextList)="handleBrands()">
     </app-select-attribute>
     <app-select-attribute *ngIf="vehicleType != '' && brandError == ''" attribute="brand" [(attributeHolder)]="vehicleBrand"
-        [attributeList]="vehicleBrands" (populateNextList)="getModels()">
+        [attributeList]="vehicleBrands" (populateNextList)="handleModels()">
     </app-select-attribute>
     <app-select-attribute *ngIf="vehicleBrand  && modelError == ''" attribute="model" [(attributeHolder)]="vehicleModel"
-        [attributeList]="vehicleModels" (populateNextList)="getYears()">
+        [attributeList]="vehicleModels" (populateNextList)="handleYears()">
     </app-select-attribute>
     <app-select-attribute *ngIf="vehicleModel && yearError == ''" attribute="year" [(attributeHolder)]="vehicleYear"
         [attributeList]="vehicleYears" >
