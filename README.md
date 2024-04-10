@@ -1,10 +1,14 @@
 # APIVeiculosClient
 
-An angular client for https://github.com/gpm22/API_Veiculos/
+An angular client for https://github.com/gpm22/API_Veiculos/.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3.
 
 ## Development server
+
+Before deploying this client, it is needed first to deploy the [API Veiculos](https://github.com/gpm22/API_Veiculos/), which will run on the port 8080.
+
+The steps for deploy the API are described on its [README](https://github.com/gpm22/API_Veiculos/blob/master/README.md).
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
