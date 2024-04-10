@@ -3,9 +3,9 @@
     <div id="select-type-container">
         <label for="select-type">Choose Type</label>
         <select (change)="getBrands()" name="types" id="select-type" [(ngModel)]="vehicleType">
-            <option *ngFor="let typeKey of objectKeys(vehicleTypes)"
-                value="vehicleTypes[typeKey]">
-                {{typeKey}}
+            <option *ngFor="let entry of objectEntries(vehicleTypes)"
+                value="{{entry[1]}}">
+                {{entry[0]}}
             </option>
         </select>
     </div>
@@ -15,7 +15,7 @@
         <label for="select-brand">Choose Brand</label>
         <select (change)="getModels()" name="types" id="select-brand" [(ngModel)]="vehicleBrand">
             <option *ngFor="let brand of vehicleBrands"
-                value="brand">
+               [ngValue]="brand">
                 {{brand.nome}}
             </option>
         </select>
@@ -26,7 +26,7 @@
         <label for="select-model">Choose Model</label>
         <select (change)="getYears()" name="types" id="select-model" [(ngModel)]="vehicleModel">
             <option *ngFor="let model of vehicleModels"
-                value="model">
+                [ngValue]="model">
                 {{model.nome}}
             </option>
         </select>
@@ -37,7 +37,7 @@
         <label for="select-year">Choose Year</label>
         <select  name="types" id="select-year" [(ngModel)]="vehicleYear">
             <option *ngFor="let year of vehicleYears"
-                value="year">
+                [ngValue]="year">
                 {{year.nome}}
             </option>
         </select>
