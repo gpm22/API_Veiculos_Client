@@ -7,11 +7,12 @@ import { Owner } from '../../models/owner';
 import { ChangeDetectorRef } from '@angular/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
 
 @Component({
   selector: 'app-vehicles',
   standalone: true,
-  imports: [NgFor, NgIf, NavbarComponent],
+  imports: [NgFor, NgIf, NavbarComponent, AddVehicleComponent],
   templateUrl: './vehicles.component.html',
   styleUrl: './vehicles.component.scss'
 })
@@ -20,6 +21,7 @@ export class VehiclesComponent{
   public vehicles: Vehicle[] = [];
   public user?: Owner;
   public errorRegistedVehicles: string = '';
+  public addingNewVehicle: boolean = false;
 
   constructor(
     private vehiclesService: VehiclesService,
@@ -54,6 +56,13 @@ export class VehiclesComponent{
       });
   }
 
+  allowAddingVehicle(){
+    this.addingNewVehicle = true;
+  }
+
+  disallowAddingVehicle(){
+    this.addingNewVehicle = false;
+  }
 
   registerVehicle(vehicle: Vehicle): void{
     if(!vehicle.id || !this.user)
