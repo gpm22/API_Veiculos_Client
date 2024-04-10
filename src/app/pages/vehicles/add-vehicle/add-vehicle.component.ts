@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { VehicleBrand, VehicleModel, VehicleType, VehicleYear } from '../../../models/api-fipe/models';
+import { ModelYear, VehicleBrand, VehicleModel, VehicleType, VehicleYear } from '../../../models/api-fipe/models';
 import { ApiFipeClientService } from '../../../shared/services/api-fipe-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -14,7 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AddVehicleComponent {
 
-  objectKeys = Object.keys;
+  objectEntries = Object.entries;
 
   @Output() cancel: EventEmitter<any> = new EventEmitter(); 
 
@@ -48,7 +48,7 @@ export class AddVehicleComponent {
             this.brandError = "";
           },
           error: (errorResponse: HttpErrorResponse) => {
-            this.brandError = errorResponse.error;
+            this.brandError = errorResponse.error.error;
           }
         })
   }
@@ -60,12 +60,12 @@ export class AddVehicleComponent {
     this.apiFipeClient
         .getModels(this.vehicleType, this.vehicleBrand.codigo)
         .subscribe({
-          next: (models) => {
-            this.vehicleModels = models;
+          next: (modelYears: ModelYear) => {
+            this.vehicleModels = modelYears.modelos;
             this.modelError = "";
           },
           error: (errorResponse: HttpErrorResponse) => {
-            this.modelError = errorResponse.error;
+            this.modelError = errorResponse.error.error;
           }
         })
   }
@@ -82,7 +82,7 @@ export class AddVehicleComponent {
             this.yearError = "";
           },
           error: (errorResponse: HttpErrorResponse) => {
-            this.yearError = errorResponse.error;
+            this.yearError = errorResponse.error.error;
           }
         })
   }
