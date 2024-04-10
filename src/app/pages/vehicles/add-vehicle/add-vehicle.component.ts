@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ModelYear, VehicleBrand, VehicleModel, VehicleType, VehicleYear } from '../../../models/api-fipe/models';
 import { ApiFipeClientService } from '../../../shared/services/api-fipe-client.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { VehiclesService } from '../vehicles.service';
+import { Vehicle } from '../../../models/vehicle';
 
 @Component({
   selector: 'app-add-vehicle',
@@ -17,6 +19,7 @@ export class AddVehicleComponent {
   objectEntries = Object.entries;
 
   @Output() cancel: EventEmitter<any> = new EventEmitter(); 
+  @Output() submit: EventEmitter<any> = new EventEmitter(); 
 
   vehicleTypes = VehicleType;
   vehicleBrands: VehicleBrand[] = [];
@@ -31,9 +34,11 @@ export class AddVehicleComponent {
   brandError: string = "";
   modelError: string = "";
   yearError: string = "";
+  addCarError: string = "";
 
   constructor(
-    private apiFipeClient: ApiFipeClientService
+    private apiFipeClient: ApiFipeClientService,
+    private vehiclesService: VehiclesService
   ) {}
 
   getBrands(){
@@ -91,11 +96,32 @@ export class AddVehicleComponent {
     this.cancel.emit();
   }
 
+  emitSubmit(){
+    this.submit.emit();
+  }
+
   addVehicle(){
-    console.log("add vehicle")
-    console.log(this.vehicleType)
-    console.log(this.vehicleBrand)
-    console.log(this.vehicleModel)
-    console.log(this.vehicleYear)
+    if(!(this.vehicleType && this.vehicleBrand && this.vehicleModel && this.vehicleYear))
+      return;
+
+    let vehicleToAdd: Vehicle = {
+      type: this.vehicleType,
+      brand: this.vehicleBrand.nome,
+      model: this.vehicleModel.nome,
+      year: this.vehicleYear.nome
+    }
+
+    this.vehiclesService
+        .save(vehicleToAdd)
+        .subscribe({
+          next: () => {
+            this.addCarError = "";
+            alert("Vehicle added successfuly");
+            this.emitSubmit();
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            this.addCarError = errorResponse.error.error;
+          }
+        });
   }
 }

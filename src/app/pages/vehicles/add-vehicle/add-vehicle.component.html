@@ -43,6 +43,7 @@
         </select>
     </div>
     <br />
+    <span *ngIf="addCarError != ''">Error adding the car: {{addCarError}}</span>
     <button type="submit">Add Vehicle</button>
     <button (click)="emitCancel()" type="button">Cancel</button>
 </form>
