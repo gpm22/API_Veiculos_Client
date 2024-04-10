@@ -3,7 +3,7 @@
 <button *ngIf="!addingNewVehicle" type="button" id="add-new-vehicle" (click)="allowAddingVehicle()">
   Add New Vehicle
 </button>
-<app-add-vehicle (cancel)="disallowAddingVehicle()"  
+<app-add-vehicle (cancel)="disallowAddingVehicle()" (submitVehicle)="onVehicleAdded($event)"  
   *ngIf="addingNewVehicle"></app-add-vehicle>
 <div *ngIf="!addingNewVehicle" id="vehicle-tables">
   <div *ngIf="!errorRegistedVehicles && vehicles.length > 0" id="registered-vehicles">

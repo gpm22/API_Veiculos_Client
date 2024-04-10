@@ -64,6 +64,12 @@ export class VehiclesComponent{
     this.addingNewVehicle = false;
   }
 
+  onVehicleAdded(vehicle: Vehicle){
+    this.vehicles.push(vehicle);
+    this.addingNewVehicle = false;
+    alert("Vehicle added successfuly");
+  }
+
   registerVehicle(vehicle: Vehicle): void{
     if(!vehicle.id || !this.user)
       return;

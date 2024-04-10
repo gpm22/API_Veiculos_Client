@@ -19,7 +19,7 @@ export class AddVehicleComponent {
   objectEntries = Object.entries;
 
   @Output() cancel: EventEmitter<any> = new EventEmitter(); 
-  @Output() submit: EventEmitter<any> = new EventEmitter(); 
+  @Output() submitVehicle: EventEmitter<any> = new EventEmitter(); 
 
   vehicleTypes = VehicleType;
   vehicleBrands: VehicleBrand[] = [];
@@ -96,8 +96,8 @@ export class AddVehicleComponent {
     this.cancel.emit();
   }
 
-  emitSubmit(){
-    this.submit.emit();
+  emitSubmit(vehicle: Vehicle){
+    this.submitVehicle.emit(vehicle);
   }
 
   addVehicle(){
@@ -114,10 +114,9 @@ export class AddVehicleComponent {
     this.vehiclesService
         .save(vehicleToAdd)
         .subscribe({
-          next: () => {
+          next: (vehicle: Vehicle) => {
             this.addCarError = "";
-            alert("Vehicle added successfuly");
-            this.emitSubmit();
+            this.emitSubmit(vehicle);
           },
           error: (errorResponse: HttpErrorResponse) => {
             this.addCarError = errorResponse.error.error;
