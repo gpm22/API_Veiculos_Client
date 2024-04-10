@@ -1,17 +1,42 @@
 <form id="add-vehicle-form" (ngSubmit)="addVehicle()">
 
-    <div id="select-types-container">
-        <label for="select-itypes">Choose Type</label>
-        <select  name="types" id="select-types" [(ngModel)]="vehicleType">
+    <div id="select-type-container">
+        <label for="select-type">Choose Type</label>
+        <select  name="types" id="select-type" [(ngModel)]="vehicleType">
             <option *ngFor="let typeKey of objectKeys(vehicleTypes)"
                 value="vehicleTypes[typeKey]">
                 {{typeKey}}
             </option>
         </select>
     </div>
-    <p *ngIf="vehicleType != ''">Choose Brand<input/></p>
-    <p *ngIf="vehicleBrand != '' ">Choose Model<input/></p>
-    <p *ngIf="vehicleModel != ''">Choose year<input/></p>
+    <div *ngIf="vehicleType != ''" id="select-brand-container">
+        <label for="select-brand">Choose Brand</label>
+        <select  name="types" id="select-brand" [(ngModel)]="vehicleBrand">
+            <option *ngFor="let brand of vehicleBrands"
+                value="brand">
+                {{brand.nome}}
+            </option>
+        </select>
+    </div>
+    <div *ngIf="vehicleBrand" id="select-model-container">
+        <label for="select-model">Choose Model</label>
+        <select  name="types" id="select-model" [(ngModel)]="vehicleModel">
+            <option *ngFor="let model of vehicleModels"
+                value="model">
+                {{model.nome}}
+            </option>
+        </select>
+    </div>    
+    <div *ngIf="vehicleModel" id="select-year-container">
+        <label for="select-year">Choose Year</label>
+        <select  name="types" id="select-year" [(ngModel)]="vehicleYear">
+            <option *ngFor="let year of vehicleYears"
+                value="year">
+                {{year.nome}}
+            </option>
+        </select>
+    </div>
+
     <button type="submit">Add Vehicle</button>
     <button (click)="emitCancel()" type="button">Cancel</button>
 </form>
