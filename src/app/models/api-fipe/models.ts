@@ -18,3 +18,8 @@ export interface VehicleYear{
     codigo: string,
     nome: string
 }
+
+export interface ModelYear{
+    modelos: VehicleModel[],
+    anos: VehicleYear[];
+}
