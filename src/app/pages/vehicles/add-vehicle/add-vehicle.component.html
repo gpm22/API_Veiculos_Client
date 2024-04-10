@@ -9,7 +9,9 @@
             </option>
         </select>
     </div>
-    <div *ngIf="vehicleType != ''" id="select-brand-container">
+    <br />
+    <span *ngIf="brandError != ''">Error fetching brands: {{brandError}}</span>
+    <div *ngIf="vehicleType != '' && brandError == ''" id="select-brand-container">
         <label for="select-brand">Choose Brand</label>
         <select (change)="getModels()" name="types" id="select-brand" [(ngModel)]="vehicleBrand">
             <option *ngFor="let brand of vehicleBrands"
@@ -18,7 +20,9 @@
             </option>
         </select>
     </div>
-    <div *ngIf="vehicleBrand" id="select-model-container">
+    <br />
+    <span *ngIf="modelError != ''">Error fetching models: {{modelError}}</span>
+    <div *ngIf="vehicleBrand && modelError == ''" id="select-model-container">
         <label for="select-model">Choose Model</label>
         <select (change)="getYears()" name="types" id="select-model" [(ngModel)]="vehicleModel">
             <option *ngFor="let model of vehicleModels"
@@ -27,7 +31,9 @@
             </option>
         </select>
     </div>    
-    <div *ngIf="vehicleModel" id="select-year-container">
+    <br />
+    <span *ngIf="yearError != ''">Error fetching years: {{yearError}}</span>
+    <div *ngIf="vehicleModel && yearError == ''" id="select-year-container">
         <label for="select-year">Choose Year</label>
         <select  name="types" id="select-year" [(ngModel)]="vehicleYear">
             <option *ngFor="let year of vehicleYears"
@@ -36,7 +42,7 @@
             </option>
         </select>
     </div>
-
+    <br />
     <button type="submit">Add Vehicle</button>
     <button (click)="emitCancel()" type="button">Cancel</button>
 </form>
